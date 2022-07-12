@@ -1,61 +1,55 @@
+// function exaple() {
+
+// }                           //ARE THE SAME!!!
+
+// const exaple = () => {
+
+// }
+let playerScore = 0;
+let pcScore = 0;
+
 function computerPlay() {
-    let rock = "rock";
-    let paper = "paper";
-    let sissors = "sissors";
+    const temp = ["rock", "paper", "sissors"];
+    const number = Math.floor(Math.random() * 3);
+    const result = temp[number];
 
-    let temp = 0;
-
-    temp = Math.floor(Math.random() * 3) + 1;
-    console.log(temp);
-
-    if(temp === 1) {
-        return rock;
-    }else if(temp === 2) {
-        return paper;
-    }else {
-        return sissors;
-    }
-
+    return result;
 }
+
+const computerSection = computerPlay(); // string what pc plays
+// const playRound = (playerSection, computerSection) => {}; // SAME.
 
 function playRound(playerSection, computerSection) {
-    let pcWin = `You lose ${computerSection} beats ${playerSection}`;
-    let playerWin = `You win ${playerSection} beats ${computerSection}`;
-    let draw = "Draw"
 
-    if(computerSection === "rock" && playerSection === "sissors") {
-        return pcWin;
-    }else if (computerSection === "paper" && playerSection === "rock") {
-        return pcWin;
-    }else if(computerSection === "sissors" && playerSection === "paper") {
-        return pcWin;
-    }else if(computerSection === playerSection) {
-        return draw;
-    }else {
-        return playerWin;
-    }
-}
-
-function game() {
-    let pcScore = 0;
-    let playerScore = 0;
-    let score = '';
-
-    for(let i=0; i<5; i++) {
-        playRound();
-
-        if(playRound().includes("win")) {
+    if((playerSection === "paper" && computerSection === "rock") ||
+        (playerSection === "rock" && computerSection === "sissors") ||
+        (playerSection === "sissors" && computerSection === "paper")) {
             playerScore++;
+            return "Player Win";
+        }else if(playerSection === computerSection) {
+            return "Draw";
         }else {
             pcScore++;
+            return "PC Win"
         }
-        console.log(score = `Player ${playerScore} : ${pcScore} PC`);
-    }
-    return console.log(score);
 }
 
-const playerSection = prompt("Choose your destiny! \n ROCK/PAPER/SISSORS ??").toLowerCase();
-const computerSection = computerPlay();
-game();
+const game = () => {
+    let score = '';
+    for(let i=0; i<5;i++) {
+        const playerSection = prompt("Paper, Rock or Sissors").toLowerCase();
+        const computerSection = computerPlay(); // string what pc plays
+        playRound(playerSection, computerSection);
+        console.log(score = `Player ${playerScore} : ${pcScore} PC`);
+    }
+    if(playerScore>pcScore) {
+        return "Player Wins"
+    }else if(playerScore<pcScore) {
+        return "PC Wins"
+    }else {
+        return "draw";
+    }
+}
 
-
+//game();
+console.log(game());
